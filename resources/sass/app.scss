@@ -1,0 +1,29 @@
+// Fonts
+@import url('https://fonts.bunny.net/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+
+.padre {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en la siguiente línea */
+    align-items: center;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-top: 20px;
+}
+
+.hijo {
+    width: calc(33.33% - 20px); /* Ancho del 33.33% con un espacio de 20px entre elementos */
+    height: 200px; /* Altura deseada */
+    margin: 10px; /* Espacio entre elementos */
+}
+
+
+nav{
+    margin-left: 15px;
+}
