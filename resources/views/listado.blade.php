@@ -1,18 +1,6 @@
 @extends('plantilla')
 @section('titulo', 'Listado de libros')
 @section('contenido')
-<<<<<<< HEAD
-<div class="padre">
-    @forelse ($libros as $libro)
-        <div class="hijo"> 
-            <h2>{{ $libro["titulo"] }}</h2>
-            <p>({{ $libro["autor"] }})</p>
-        </div>
-    @empty
-        <li>No se encontraron libros</li>
-    @endforelse
-</div>
-=======
     <div class="container mt-4">
         <h2>Listado de Libros</h2>
         <table class="table table-bordered">
@@ -46,5 +34,4 @@
             </tbody>
         </table>
     </div>
->>>>>>> lahecagado
 @endsection
