@@ -1,6 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LibrosController;
+use App\Http\Controllers\CortosController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\autores;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,118 +19,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/cortos', function () {
-    $cortos = [
-        [
-        'id' => 1,
-        'titulo' => 'El corto más cortante',
-        'director' => 'María Martín',
-        'sinapsis' => 'Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit, sed do eiusmod tempor incididunt ut labore
-        et dolore magna aliqua.'
-        ],
-        [
-        'id' => 2,
-        'titulo' => 'Sin más',
-        'director' => 'Pepa Pérez',
-        'sinapsis' => 'Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit, sed do eiusmod tempor incididunt ut labore
-        et dolore magna aliqua.'
-        ],
-        [
-        'id' => 3,
-        'titulo' => 'Más o menos',
-        'director' => 'Juan Jiménez',
-        'sinapsis' => 'Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit, sed do eiusmod tempor incididunt ut labore
-        et dolore magna aliqua.'
-        ],
-        [
-        'id' => 4,
-        'titulo' => 'Tira pa\' ya',
-        'director' => 'Sofía Sofín',
-        'sinapsis' => 'Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit, sed do eiusmod tempor incididunt ut labore
-        et dolore magna aliqua.'
-        ],
-        [
-        'id' => 5,
-        'titulo' => 'Miedo','director' => 'Pepe Parrilla',
-        'sinapsis' => 'Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit, sed do eiusmod tempor incididunt ut labore
-        et dolore magna aliqua.'
-        ]
-        ];
-    return view('cortos', compact('cortos'));
+Route::get('creandolibro', [LibrosController::class, 'store'])->name('creandolibro');
 
-})-> name('cortos');
+Route::get('formulario', function () {
 
+    return view('nuevolibro');
+})->name('formulario');
 
+Route::get('/listado/{libro}', [LibrosController::class, 'destroy'])->name('listado.destroy');
 
+Route::get('/listado/modificar/{id}', [LibrosController::class, 'edit'])->name('listado.edit');
 
-Route::get('/cortos/{id}', function ($id) {
-    $cortos = [
-        [
-        'id' => 1,
-        'titulo' => 'El corto más cortante',
-        'director' => 'María Martín',
-        'sinapsis' => 'Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit, sed do eiusmod tempor incididunt ut labore
-        et dolore magna aliqua.'
-        ],
-        [
-        'id' => 2,
-        'titulo' => 'Sin más',
-        'director' => 'Pepa Pérez',
-        'sinapsis' => 'Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit, sed do eiusmod tempor incididunt ut labore
-        et dolore magna aliqua.'
-        ],
-        [
-        'id' => 3,
-        'titulo' => 'Más o menos',
-        'director' => 'Juan Jiménez',
-        'sinapsis' => 'Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit, sed do eiusmod tempor incididunt ut labore
-        et dolore magna aliqua.'
-        ],
-        [
-        'id' => 4,
-        'titulo' => 'Tira pa\' ya',
-        'director' => 'Sofía Sofín',
-        'sinapsis' => 'Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit, sed do eiusmod tempor incididunt ut labore
-        et dolore magna aliqua.'
-        ],
-        [
-        'id' => 5,
-        'titulo' => 'Miedo','director' => 'Pepe Parrilla',
-        'sinapsis' => 'Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit, sed do eiusmod tempor incididunt ut labore
-        et dolore magna aliqua.'
-        ]
-        ];
-        return view('cortosid', compact('cortos','id'));
+Route::put('/formulariomodificar', [LibrosController::class, 'update'])->name('modificandolibro');
 
-})-> name('cortosid');
+//AUTORES
 
-Route::get('/home', function () {
-    
-    return view('home');
+Route::resource('autores', autores::class);
+Route::resource('libros', LibrosController::class);
 
-})-> name('home');
-
-
-Route::get('listado', function() {
-    $libros = array(
-    array("titulo" => "El juego de Ender",
-    "autor" => "Orson Scott Card"),
-    array("titulo" => "La tabla de Flandes",
-    "autor" => "Arturo Pérez Reverte"),
-    array("titulo" => "La historia interminable",
-    "autor" => "Michael Ende"),
-    array("titulo" => "El Señor de los Anillos",
-    "autor" => "J.R.R. Tolkien")
-    );
-return view('listado', compact('libros'));
-})->name('listadolibros');
+Route::get('listado', [LibrosController::class, 'index'])->name('listado');
+Route::get('cortos', [CortosController::class, 'index'])->name('cortos');
+Route::get('cortos/{id}', [CortosController::class, 'show'])->name('cortosid');
+Route::get('home', [HomeController::class, 'index'])->name('home');
